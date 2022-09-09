@@ -1,11 +1,17 @@
 package br.com.evaldocorp.ecommerce.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity // indica que a classe eh amarzenada no banco
 @Table(name = "departamento") // nome da tabela a ser usada
@@ -21,6 +27,10 @@ public class Departamento {
 
     @Column(name = "descricao", nullable = true, columnDefinition = "TEXT")
     private String descricao;
+
+    @OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("departamento")
+    private List<Produto> listaProdutos;
 
     public Integer getCodigo() {
         return codigo;
@@ -44,6 +54,14 @@ public class Departamento {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public List<Produto> getListaProdutos() {
+        return listaProdutos;
+    }
+
+    public void setListaProdutos(List<Produto> listaProdutos) {
+        this.listaProdutos = listaProdutos;
     }
 
 }
