@@ -29,7 +29,7 @@ public class ClienteController {
     public ResponseEntity<Cliente> listarPeloID(@PathVariable Integer id) {
         Cliente resposta = service.buscarClientePeloId(id);
         if (resposta != null) {
-            ResponseEntity.ok(resposta);
+            return ResponseEntity.ok(resposta);
         }
 
         return ResponseEntity.notFound().build();
